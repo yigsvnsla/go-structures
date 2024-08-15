@@ -1,7 +1,7 @@
 package DoubleLinkedList
 
 import (
-	ll "go-structures/LinkedList"
+	ll "go-structures/LinkedListx"
 	"iter"
 )
 

@@ -1,13 +1,15 @@
 package pkg
 
+import "go-structures/pkg/linkedList"
+
 type Table struct {
 	deck    *Deck
 	cards   []*Card
-	players [4]*Player
+	players linkedList.TypeI[Player]
 	id      uint
 }
 
-func CreateTable(playersTable [4]*Player, idTable uint) *Table {
+func CreateTable(playersTable linkedList.TypeI[Player], idTable uint) *Table {
 	return &Table{
 		deck:    GenerateDeck(),
 		cards:   make([]*Card, 0),

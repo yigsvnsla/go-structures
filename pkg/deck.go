@@ -19,12 +19,10 @@ func GenerateDeck() *Deck {
 			index++
 		}
 	}
-
-	d.shuffleDeck()
 	return d
 }
 
-func (d *Deck) shuffleDeck() {
+func (d *Deck) Shuffle() {
 	var lengthDeck int = len(d.cards)
 	var cardTemp *Card = nil
 	for i := lengthDeck; i > 1; i-- {
