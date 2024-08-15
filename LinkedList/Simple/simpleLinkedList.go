@@ -1,4 +1,4 @@
-package link_list
+package SimpleLinkedList
 
 import (
 	"errors"
@@ -9,32 +9,31 @@ const (
 	NodeNotFound = "Node Not Found"
 )
 
-type SimpleLinklistValues interface {
-	GetValue() string
+type SimpleLinkedListValues interface {
 }
 
-type SimpleLinkList[T SimpleLinklistValues] struct {
+type SimpleLinkedList[T SimpleLinkedListValues] struct {
 	head *SimpleNode[T]
 	tail *SimpleNode[T]
 	size int
 }
 
-func (ll *SimpleLinkList[T]) GetSize() int {
+func (ll *SimpleLinkedList[T]) GetSize() int {
 	return ll.size
 }
 
-func (ll *SimpleLinkList[T]) GetHead() *SimpleNode[T] {
+func (ll *SimpleLinkedList[T]) GetHead() *SimpleNode[T] {
 	return ll.head
 }
 
-func (ll *SimpleLinkList[T]) GetTail() *SimpleNode[T] {
+func (ll *SimpleLinkedList[T]) GetTail() *SimpleNode[T] {
 	return ll.tail
 }
 
-func (ll *SimpleLinkList[T]) Append(values ...T) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) Append(values ...T) (*SimpleNode[T], error) {
 	var stageNodes *SimpleNode[T]
 	for _, value := range values {
-		newNode := SimpleNewNode[T](value, nil)
+		newNode := SimpleNewNode(value, nil)
 		if stageNodes == nil {
 			stageNodes = newNode
 		}
@@ -50,12 +49,12 @@ func (ll *SimpleLinkList[T]) Append(values ...T) (*SimpleNode[T], error) {
 	return stageNodes, nil
 }
 
-func (ll *SimpleLinkList[T]) Contains(predicate func(T) bool) bool {
+func (ll *SimpleLinkedList[T]) Contains(predicate func(T) bool) bool {
 	_, err := ll.Find(predicate)
 	return err == nil
 }
 
-func (ll *SimpleLinkList[T]) Delete(predicate func(T) bool) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) Delete(predicate func(T) bool) (*SimpleNode[T], error) {
 	currentNode := ll.head
 	if currentNode == nil {
 		return nil, errors.New("Head Null")
@@ -76,7 +75,7 @@ func (ll *SimpleLinkList[T]) Delete(predicate func(T) bool) (*SimpleNode[T], err
 	return nil, errors.New("Node Not Found")
 }
 
-func (ll *SimpleLinkList[T]) Find(predicate func(T) bool) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) Find(predicate func(T) bool) (*SimpleNode[T], error) {
 	currentNode := ll.head
 	if currentNode == nil {
 		return nil, errors.New("Head Null")
@@ -89,7 +88,7 @@ func (ll *SimpleLinkList[T]) Find(predicate func(T) bool) (*SimpleNode[T], error
 	return nil, errors.New("Node Not Found")
 }
 
-func (ll *SimpleLinkList[T]) FindParent(predicate func(T) bool) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) FindParent(predicate func(T) bool) (*SimpleNode[T], error) {
 	currentNode := ll.head
 	if currentNode == nil {
 		return nil, errors.New("Head Null")
@@ -107,7 +106,7 @@ func (ll *SimpleLinkList[T]) FindParent(predicate func(T) bool) (*SimpleNode[T],
 	return nil, errors.New(NodeNotFound)
 }
 
-func (ll *SimpleLinkList[T]) InsertBefore(predicate func(T) bool, newValue T) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) InsertBefore(predicate func(T) bool, newValue T) (*SimpleNode[T], error) {
 	headNode := ll.head
 	parentNode, err := ll.FindParent(predicate)
 	if err != nil {
@@ -123,7 +122,7 @@ func (ll *SimpleLinkList[T]) InsertBefore(predicate func(T) bool, newValue T) (*
 	return parentNode.Next, nil
 }
 
-func (ll *SimpleLinkList[T]) InsertAfter(predicate func(T) bool, newValue T) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) InsertAfter(predicate func(T) bool, newValue T) (*SimpleNode[T], error) {
 	node, err := ll.Find(predicate)
 	if err != nil {
 		fmt.Println("error insert after")
@@ -136,7 +135,7 @@ func (ll *SimpleLinkList[T]) InsertAfter(predicate func(T) bool, newValue T) (*S
 	return newNode, err
 }
 
-func (ll *SimpleLinkList[T]) Replace(predicate func(T) bool, newValue T) (*SimpleNode[T], error) {
+func (ll *SimpleLinkedList[T]) Replace(predicate func(T) bool, newValue T) (*SimpleNode[T], error) {
 	node, err := ll.Find(predicate)
 	if err != nil {
 		return nil, err
@@ -145,9 +144,9 @@ func (ll *SimpleLinkList[T]) Replace(predicate func(T) bool, newValue T) (*Simpl
 	return node, nil
 }
 
-func (ll *SimpleLinkList[T]) Show() {
+func (ll *SimpleLinkedList[T]) Show() {
 	for v := range ll.head.EachValues() {
-		fmt.Print("-> ", v.GetValue())
+		fmt.Print("-> ", v)
 	}
 	fmt.Println()
 }

@@ -1,11 +1,10 @@
-package link_list
+package LinkedList
 
 import (
 	"iter"
 )
 
 type NodeBaseValues interface {
-	GetValue() string
 }
 
 type NodeBase[T NodeBaseValues] struct {

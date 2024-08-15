@@ -1,7 +1,7 @@
-package link_list
+package SimpleLinkedList
 
 import (
-	ll "go-structures/link-list"
+	ll "go-structures/LinkedList"
 )
 
 type SimpleNodeValues interface {
