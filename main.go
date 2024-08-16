@@ -2,7 +2,7 @@ package main
 
 import (
 	pkg "go-structures/pkg"
-	utils "go-structures/pkg/utils"
+	"go-structures/pkg/utils"
 )
 
 func main() {
@@ -17,6 +17,8 @@ func main() {
 	playerList.Append(players...)
 
 	table := pkg.CreateTable(playerList, 4444)
-
+	table.GenerateDeck()
+	table.ShuffleDeck()
+	// table.Show()
 	utils.PrintStruct(*table)
 }

@@ -1,17 +1,19 @@
 package pkg
 
-import "go-structures/pkg/linkedList"
+import (
+	"go-structures/pkg/linkedList"
+)
 
-type DeckPlayer struct {
-	Deck
-	cards []*Card
-}
+// type DeckPlayer struct {
+// 	Deck
+// 	// cards []*Card
+// }
 
 type Player struct {
 	cards [3]*Card
-	deck  DeckPlayer
-	name  string
-	id    uint
+	// deck  DeckPlayer
+	name string
+	id   uint
 }
 
 func NewPlayer(namePlayer string, idPlayer uint) *Player {
@@ -30,7 +32,6 @@ func NewPlayerList(players ...Player) *PlayerList {
 
 func (pl *PlayerList) Append(players ...Player) {
 	for _, value := range players {
-		node := linkedList.NewNode(value)
-		pl.Type.Append(node)
+		pl.Type.Append(linkedList.NewNode(value, nil, nil))
 	}
 }

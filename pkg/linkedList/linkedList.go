@@ -17,7 +17,7 @@ type TypeI[T linkedListValue] interface {
 type Type[T linkedListValue] struct {
 	head *Node[T]
 	tail *Node[T]
-	list *Node[T]
+	// list *Node[T]
 	size uint
 }
 
@@ -26,7 +26,7 @@ func (ll Type[T]) Head() *Node[T] {
 }
 
 func (ll *Type[T]) SetHead(v *Node[T]) {
-	ll.list = v
+	ll.head = v
 }
 
 func (ll Type[T]) Tail() *Node[T] {
@@ -37,13 +37,13 @@ func (ll *Type[T]) SetTail(v *Node[T]) {
 	ll.tail = v
 }
 
-func (ll *Type[T]) List() *Node[T] {
-	return ll.list
-}
+// func (ll *Type[T]) List() *Node[T] {
+// 	return ll.list
+// }
 
-func (ll *Type[T]) SetList(v *Node[T]) {
-	ll.list = v
-}
+// func (ll *Type[T]) SetList(v *Node[T]) {
+// 	ll.list = v
+// }
 
 func (ll *Type[T]) Size() uint {
 	return ll.size
@@ -58,31 +58,21 @@ func New[T linkedListValue]() *Type[T] {
 }
 
 func (ll *Type[T]) Append(node *Node[T]) {
-
-	// 	// var stageNodes *SimpleNode[T]
-	// 	// for _, value := range values {
-	// 	// 	newNode := SimpleNewNode(value, nil)
-	// 	// 	if stageNodes == nil {
-	// 	// 		stageNodes = newNode
-	// 	// 	}
-
 	if ll.head == nil {
-		ll.head = node
-		ll.list = ll.head
-		ll.tail = ll.head
+		node.Next = node
+		ll.head = node.Next
+		// ll.list = ll.head
+		ll.tail = node.Next
 		ll.size++
 		return
 	}
 
-	if ll.tail != nil {
-		ll.list.Next = node
-		ll.list = ll.list.Next
-		ll.tail = node
-		ll.size++
-	}
+	node.Next = ll.head
+	ll.tail.Next = node
+	ll.tail = node
+	ll.size++
+	return
 
-	// }
-	// 	// return stageNodes, nil
 }
 
 // package SimpleLinkedList
